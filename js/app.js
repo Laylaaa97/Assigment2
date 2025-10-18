@@ -114,7 +114,7 @@ async function main() {
     console.log("Har alla ett namn? ->", allHaveNames);
   });
 
-  // 1) Första 5 namn i alfabetisk ordning
+  // Första 5 namn i alfabetisk ordning
   log.group("1) Första 5 namn i alfabetisk ordning", () => {
     const firstFiveAlpha = [...meals]
       .sort((a, b) => a.strMeal.localeCompare(b.strMeal))
@@ -123,7 +123,7 @@ async function main() {
     console.log(firstFiveAlpha);
   });
 
-  // 2) Filtrera på given kategori (namn + kategori)
+  // Filtrera på given kategori (namn + kategori)
   log.group("2) Alla måltider i en given kategori (namn + kategori)", () => {
     const givenCategory = "Beef"; // ändra om du vill: "Chicken", "Dessert", etc.
     const matches = meals
@@ -135,7 +135,7 @@ async function main() {
     console.table(matches);
   });
 
-  // 3) Antal måltider per kategori (reduce -> frequency map)
+  // Antal måltider per kategori (reduce -> frequency map)
   log.group("3) Antal måltider per kategori (frequency map)", () => {
     const byCategoryCount = meals.reduce((acc, meal) => {
       const cat = meal.strCategory ?? "Unknown";
@@ -145,11 +145,7 @@ async function main() {
     console.log(byCategoryCount);
   });
 
-  // ----------------------------
-  // STRETCH GOALS (VG)
-  // ----------------------------
-
-  // A) groupBy på strCategory
+  // groupBy på strCategory
   log.group("VG A) groupBy(meals, 'strCategory')", () => {
     const grouped = groupBy(meals, "strCategory");
     const summary = Object.fromEntries(
@@ -158,7 +154,7 @@ async function main() {
     console.log(summary);
   });
 
-  // B) Reshape – kompakta summaries
+  // Reshape, kompakta summaries
   log.group("VG B) Kompakta 'meal summaries'", () => {
     const summaries = meals.map((m) => ({
       id: m.idMeal,
@@ -169,7 +165,7 @@ async function main() {
     console.dir(summaries.slice(0, 5), { depth: null });
   });
 
-  // C) Ingredient frequency över alla rätter
+  // Ingredient frequency över alla rätter
   log.group("VG C) Ingredient frequency (alla måltider)", () => {
     const ingredientCounts = meals
       .flatMap((m) => getIngredients(m))
@@ -180,7 +176,7 @@ async function main() {
     console.log(ingredientCounts);
   });
 
-  // Bonus: tre längsta matnamnen
+  // tre längsta matnamnen
   log.group("Bonus) De 3 längsta matnamnen", () => {
     const longestNames = [...meals]
       .sort((a, b) => b.strMeal.length - a.strMeal.length)
@@ -192,7 +188,7 @@ async function main() {
   log.title("Klart! 🎉 Kolla konsolen för alla delar.");
 }
 
-// Starta och fånga ev. fel (släcker IDE-varningen om “ignored promise”)
+// Starta och fånga ev. fel
 main().catch((err) => {
   console.error("Ov�ntat fel i main():", err);
 });
